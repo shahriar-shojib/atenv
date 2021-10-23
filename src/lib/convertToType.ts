@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-types
 export const convertToType = (value: any, type: () => String | Number | Boolean) => {
 	switch (type) {
 		case String:

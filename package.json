@@ -1,20 +1,50 @@
 {
-	"name": "reflection",
-	"version": "1.0.0",
-	"main": "index.js",
+	"name": "atenv",
+	"version": "1.0.3",
+	"main": "dist/index.js",
 	"license": "MIT",
 	"dependencies": {
 		"class-transformer": "^0.4.0",
 		"class-validator": "^0.13.1",
 		"dotenv": "^10.0.0",
-		"iterare": "^1.2.1",
-		"reflect-metadata": "^0.1.13",
-		"typescript": "^4.4.3"
+		"reflect-metadata": "^0.1.13"
 	},
 	"devDependencies": {
-		"tsc-watch": "^4.5.0"
+		"@typescript-eslint/eslint-plugin": "^5.1.0",
+		"@typescript-eslint/parser": "^5.1.0",
+		"eslint": "^8.1.0",
+		"prettier": "^2.4.1",
+		"typescript": "^4.4.4"
 	},
 	"scripts": {
-		"build": "tsc"
-	}
+		"build": "tsc",
+		"ci": "yarn --frozen-lockfile"
+	},
+	"author": {
+		"name": "Shahriar Shojib",
+		"email": "shahriar_shojib@hotmail.com",
+		"url": "https://github.com/shahriar-shojib/"
+	},
+	"keywords": [
+		"env",
+		"dotenv",
+		"class",
+		"validator",
+		"transformer",
+		"reflect",
+		"metadata"
+	],
+	"files": [
+		"dist"
+	],
+	"types": "./dist/index.d.ts",
+	"description": "A modern dotenv replacement for Typescript projects",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/shahriar-shojib/atenv.git"
+	},
+	"bugs": {
+		"url": "https://github.com/shahriar-shojib/atenv/issues"
+	},
+	"homepage": "https://github.com/shahriar-shojib/atenv"
 }

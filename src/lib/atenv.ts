@@ -43,6 +43,7 @@ export type Prototype = {
  * @returns class instance with environment variables
  */
 export const parseEnv = <T>(TClass: new () => T, options?: Options) => {
+	// eslint-disable-next-line @typescript-eslint/no-var-requires
 	require('dotenv').config(options?.dotEnvOptions);
 	const instance = new TClass() as Prototype;
 
@@ -65,7 +66,7 @@ export const parseEnv = <T>(TClass: new () => T, options?: Options) => {
 
 	if (errors.length) {
 		const mappedMessages = errors
-			.map(e => {
+			.map((e) => {
 				const environmentName = Reflect.getMetadata(ENV_KEY, e.target as object)[e.property];
 				return `${e}Env Key: ${environmentName}`;
 			})
