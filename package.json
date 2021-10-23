@@ -1,0 +1,20 @@
+{
+	"name": "reflection",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "MIT",
+	"dependencies": {
+		"class-transformer": "^0.4.0",
+		"class-validator": "^0.13.1",
+		"dotenv": "^10.0.0",
+		"iterare": "^1.2.1",
+		"reflect-metadata": "^0.1.13",
+		"typescript": "^4.4.3"
+	},
+	"devDependencies": {
+		"tsc-watch": "^4.5.0"
+	},
+	"scripts": {
+		"build": "tsc"
+	}
+}
