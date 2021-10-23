@@ -1,5 +1,8 @@
 ## AtEnv is a modern replacement for parsing env on Typescript projects
 
+[![Run Tests](https://github.com/shahriar-shojib/atenv/actions/workflows/tests.yml/badge.svg)](https://github.com/shahriar-shojib/atenv/actions/workflows/tests.yml)
+[![Publish to NPM](https://github.com/shahriar-shojib/atenv/actions/workflows/publish-to-npm.yml/badge.svg)](https://github.com/shahriar-shojib/atenv/actions/workflows/publish-to-npm.yml)
+
 ### How to install
 
 ```bash
