@@ -61,7 +61,10 @@ export const parseEnv = <T>(TClass: new () => T, options?: ParseEnvOptions) => {
 		}
 	}
 
-	const converted = classToClass(instance, options?.transformOptions);
+	const converted = classToClass(instance, {
+		exposeDefaultValues: true,
+		...options?.transformOptions,
+	});
 	const errors = validateSync(converted, { stopAtFirstError: true, ...options?.validatorOptions });
 
 	if (errors.length) {
