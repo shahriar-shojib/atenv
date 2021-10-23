@@ -1,6 +1,6 @@
 {
 	"name": "atenv",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"main": "dist/index.js",
 	"license": "MIT",
 	"dependencies": {
@@ -10,15 +10,24 @@
 		"reflect-metadata": "^0.1.13"
 	},
 	"devDependencies": {
+		"@types/jest": "^27.0.2",
 		"@typescript-eslint/eslint-plugin": "^5.1.0",
 		"@typescript-eslint/parser": "^5.1.0",
 		"eslint": "^8.1.0",
+		"jest": "^27.3.1",
 		"prettier": "^2.4.1",
+		"rimraf": "^3.0.2",
+		"ts-jest": "^27.0.7",
 		"typescript": "^4.4.4"
 	},
 	"scripts": {
-		"build": "tsc",
-		"ci": "yarn --frozen-lockfile"
+		"build": "rimraf dist && tsc -p tsconfig.build.json",
+		"ci": "yarn --frozen-lockfile",
+		"test": "jest",
+		"lint": "eslint ./src",
+		"lint:fix": "eslint ./src --fix",
+		"format": "prettier --write ./src",
+		"prettier:check": "prettier --check ./src"
 	},
 	"author": {
 		"name": "Shahriar Shojib",
@@ -46,5 +55,17 @@
 	"bugs": {
 		"url": "https://github.com/shahriar-shojib/atenv/issues"
 	},
-	"homepage": "https://github.com/shahriar-shojib/atenv"
+	"homepage": "https://github.com/shahriar-shojib/atenv",
+	"jest": {
+		"moduleFileExtensions": [
+			"ts",
+			"js"
+		],
+		"rootDir": "src",
+		"testRegex": ".spec.ts$",
+		"transform": {
+			"^.+\\.(t|j)s$": "ts-jest"
+		},
+		"testEnvironment": "node"
+	}
 }

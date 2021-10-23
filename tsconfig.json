@@ -20,6 +20,5 @@
     "declaration": true,
     "pretty": true,
   },
-  "include": ["src/**/*.ts"],
-  
+  "include": ["src/**/*.ts"],  
 }

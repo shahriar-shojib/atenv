@@ -6,7 +6,7 @@ export const convertToType = (value: any, type: () => String | Number | Boolean)
 		case Number:
 			return value ? (isNaN(Number(value)) ? undefined : Number(value)) : undefined;
 		case Boolean:
-			return value ? Boolean(value) : undefined;
+			return value ? Boolean(value?.toLowerCase()) : undefined;
 		default:
 			return value;
 	}

@@ -13,6 +13,9 @@ jobs:
         with:
           node-version: 14
       - run: yarn ci
+      - run: yarn test
+      - run: yarn lint
+      - run: yarn prettier:check
       - run: yarn build
 
   publish-npm:

@@ -1,12 +1,12 @@
 import { classToClass, ClassTransformOptions } from 'class-transformer';
 import { validateSync, ValidatorOptions } from 'class-validator';
-import { DotenvConfigOptions } from 'dotenv';
+import { config, DotenvConfigOptions } from 'dotenv';
 import { ENV_KEY, SECTION_KEY } from './constants';
 import { convertToType } from './convertToType';
 
-export type Options = {
+export type ParseEnvOptions = {
 	validatorOptions?: ValidatorOptions;
-	transformOptions: ClassTransformOptions;
+	transformOptions?: ClassTransformOptions;
 	dotEnvOptions?: DotenvConfigOptions;
 };
 
@@ -42,22 +42,22 @@ export type Prototype = {
  * @param options Options for dotenv,class-validator,class-transformat @optional
  * @returns class instance with environment variables
  */
-export const parseEnv = <T>(TClass: new () => T, options?: Options) => {
-	// eslint-disable-next-line @typescript-eslint/no-var-requires
-	require('dotenv').config(options?.dotEnvOptions);
+export const parseEnv = <T>(TClass: new () => T, options?: ParseEnvOptions) => {
+	config(options?.dotEnvOptions);
 	const instance = new TClass() as Prototype;
 
 	const metadata = Reflect.getMetadata(ENV_KEY, instance) as Prototype;
-
-	for (const [key, environmentName] of Object.entries(metadata)) {
-		const type = Reflect.getMetadata('design:type', instance, key);
-		instance[key] = convertToType(process.env[environmentName], type);
+	if (metadata) {
+		for (const [key, environmentName] of Object.entries(metadata)) {
+			const type = Reflect.getMetadata('design:type', instance, key);
+			instance[key] = convertToType(process.env[environmentName], type);
+		}
 	}
 
 	const sectionsMetadata = Reflect.getMetadata(SECTION_KEY, instance) as Prototype;
 	if (sectionsMetadata) {
 		for (const [key, section] of Object.entries(sectionsMetadata)) {
-			instance[key] = parseEnv(section);
+			instance[key] = parseEnv(section, options);
 		}
 	}
 
