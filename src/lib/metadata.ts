@@ -8,6 +8,7 @@ export const defineSectionMetadata = (target: object, propertyKey: string, TClas
 			[propertyKey]: TClass,
 		};
 		Reflect.defineMetadata(SECTION_KEY, newMetadata, target);
+		return;
 	}
 
 	const newMetadata = {

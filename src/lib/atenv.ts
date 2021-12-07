@@ -71,7 +71,7 @@ export const parseEnv = <T>(TClass: new () => T, options?: ParseEnvOptions) => {
 		const mappedMessages = errors
 			.map((e) => {
 				const environmentName = Reflect.getMetadata(ENV_KEY, e.target as object)[e.property];
-				return `${e}Env Key: ${environmentName}`;
+				return `${e.constraints} \n Env Key: ${environmentName}`;
 			})
 			.join('\n');
 		throw new Error(mappedMessages);
