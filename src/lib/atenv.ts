@@ -1,4 +1,4 @@
-import { classToClass, ClassTransformOptions } from 'class-transformer';
+import { ClassTransformOptions, instanceToInstance } from 'class-transformer';
 import { validateSync, ValidatorOptions } from 'class-validator';
 import { config, DotenvConfigOptions } from 'dotenv';
 import { ENV_KEY, SECTION_KEY } from './constants';
@@ -61,7 +61,7 @@ export const parseEnv = <T>(TClass: new () => T, options?: ParseEnvOptions) => {
 		}
 	}
 
-	const converted = classToClass(instance, {
+	const converted = instanceToInstance(instance, {
 		exposeDefaultValues: true,
 		...options?.transformOptions,
 	});
