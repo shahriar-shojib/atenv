@@ -10,6 +10,10 @@ export type ParseEnvOptions = {
 	dotEnvOptions?: DotenvConfigOptions;
 };
 
+const toPascalCase = (str: string) => {
+	return str[0].toUpperCase() + str.slice(1);
+};
+
 export type Prototype = {
 	[key: string]: any;
 };
@@ -71,7 +75,11 @@ export const parseEnv = <T>(TClass: new () => T, options?: ParseEnvOptions) => {
 		const mappedMessages = errors
 			.map((e) => {
 				const environmentName = Reflect.getMetadata(ENV_KEY, e.target as object)[e.property];
-				return `${e.constraints} \n Env Key: ${environmentName}`;
+				return Object.entries(e.constraints!)
+					.map(([key, error]) => {
+						return `env key: ${environmentName} validator: @${toPascalCase(key)} ${error}`;
+					})
+					.join('\n');
 			})
 			.join('\n');
 		throw new Error(mappedMessages);

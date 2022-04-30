@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import { IsDefined } from 'class-validator';
 import 'reflect-metadata';
 import { parseEnv } from '../lib/atenv';
@@ -73,6 +74,20 @@ describe('atEnv Main functionality', () => {
 		expect(typeof parsed.testEnv).toBe('number');
 	});
 
+	it('should be able to parse date values', () => {
+		class TestClass {
+			@Env('TEST_DATE')
+			public testEnv: Date;
+		}
+
+		const parsed = parseEnv(TestClass, {
+			dotEnvOptions: {
+				path: '.env.test',
+			},
+		});
+		expect(parsed.testEnv).toBeInstanceOf(Date);
+	});
+
 	it('should be throw validation errors if a case fails', () => {
 		class TestClass {
 			@Env('UNDEFINED_VALUE')
@@ -87,5 +102,37 @@ describe('atEnv Main functionality', () => {
 				},
 			});
 		}).toThrowError(/UNDEFINED_VALUE/);
+	});
+
+	it('should transform value if @Transform was used', () => {
+		class TestClass {
+			@Env('TEST_TRANSFORM')
+			@Transform(({ value }) => value.toUpperCase())
+			public testEnv: string;
+		}
+
+		const parsed = parseEnv(TestClass, {
+			dotEnvOptions: {
+				path: '.env.test',
+			},
+		});
+
+		expect(parsed.testEnv).toBe('ABCD');
+	});
+
+	it('should throw errors with correct representation', () => {
+		class TestClass {
+			@Env('UNDEFINED_VALUE')
+			@IsDefined()
+			public testEnv: string;
+		}
+
+		expect(() =>
+			parseEnv(TestClass, {
+				dotEnvOptions: {
+					path: '.env.test',
+				},
+			})
+		).toThrowError(new Error('env key: UNDEFINED_VALUE validator: @IsDefined testEnv should not be null or undefined'));
 	});
 });
